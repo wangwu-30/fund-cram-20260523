@@ -977,11 +977,47 @@ input {
     padding-right: 14px;
   }
 
+  .topbar {
+    gap: 12px;
+    padding-bottom: 10px;
+    position: static;
+  }
+
   .topbar h1 {
     font-size: 23px;
   }
 
-  .stats,
+  .notice {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .stats {
+    gap: 6px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .stats span {
+    min-width: 0;
+    padding: 6px 4px;
+  }
+
+  .stats strong {
+    font-size: 18px;
+  }
+
+  .tabs {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tab {
+    min-height: 36px;
+    min-width: 0;
+    padding: 6px 8px;
+  }
+
   .rail,
   .rule-strip,
   .control-panel,
