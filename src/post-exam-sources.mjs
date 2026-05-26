@@ -1,0 +1,112 @@
+export const postExamSummary = {
+  checkedAt: "2026-05-27 14:30 CST",
+  officialNotice:
+    "中基协公告确认 2026-05-23 全国统考为闭卷机考，三科均为 100 道单选、120 分钟、60 分合格；同时提示不要轻信以提供真题为名的收费骗局。",
+  sources: [
+    {
+      name: "中基协 2026 年 5 月考试公告",
+      type: "官方公告",
+      coverage: "考试科目、题型题量、成绩查询、风险提示",
+      status: "官方可访问，不提供题目",
+      url: "https://www.amac.org.cn/xwfb/tzgg/202604/t20260427_27624.html",
+      notes: "用于校验考试规则和防诈骗边界，不作为题库来源。",
+    },
+    {
+      name: "233 网校 2026 基金真题专题",
+      type: "估分专题",
+      coverage: "三科估分入口、真题征集、直播/小程序路径",
+      status: "公开页面可访问，部分题目在网页公开，更多题目在小程序/APP",
+      url: "https://www.233.com/jjcy/zhuanti/2026zhenti/",
+      notes: "专题页提示可在线估分；适合做第一轮核对入口。",
+    },
+    {
+      name: "233 科目一：基金基础知识与法律法规",
+      type: "公开回忆题",
+      coverage: "网页已展示少量回忆题、答案和解析",
+      status: "可公开查看",
+      url: "https://www.233.com/jjcy/jichu/zhenti/202605/12113313973093.html",
+      notes: "已看到销售适当性、基金合同终止等题点；不整页搬运，按链接查看题面。",
+    },
+    {
+      name: "233 科目二：证券投资基金基础知识",
+      type: "估分/征集页",
+      coverage: "科目二考后估分与真题征集",
+      status: "公开页面可访问，题目主要在估分入口",
+      url: "https://www.233.com/jjcy/jczs/zhenti/202605/12113540836766.html",
+      notes: "页面说明考后收集整理并提供估分、解析。",
+    },
+    {
+      name: "233 科目三：私募股权投资基金基础知识",
+      type: "估分/征集页",
+      coverage: "科目三考后估分与真题征集",
+      status: "公开页面可访问，题目主要在估分入口",
+      url: "https://www.233.com/jjcy/smgq/zhenti/202605/12113832125368.html",
+      notes: "页面说明考后收集整理并提供估分、解析。",
+    },
+    {
+      name: "希赛历年真题列表",
+      type: "题库入口",
+      coverage: "三科 2026 年 5 月真题估分卷",
+      status: "列表公开，做题接口需要登录",
+      url: "https://www.educity.cn/jjcy/c509-1.html",
+      notes: "可作为第二来源交叉核对；直接抓题会跳登录页。",
+    },
+    {
+      name: "希赛科目一估分卷",
+      type: "登录题库",
+      coverage: "99 题",
+      status: "页面公开题量，题面需登录做题",
+      url: "https://www.educity.cn/tiku/tp30419740.html",
+      notes: "可手动登录查看，勿提供或上传 cookie。",
+    },
+    {
+      name: "希赛科目二估分卷",
+      type: "登录题库",
+      coverage: "100 题",
+      status: "页面公开题量，题面需登录做题",
+      url: "https://www.educity.cn/tiku/tp30419741.html",
+      notes: "可手动登录查看，勿提供或上传 cookie。",
+    },
+    {
+      name: "希赛科目三估分卷",
+      type: "登录题库",
+      coverage: "40 题",
+      status: "页面公开题量，题面需登录做题",
+      url: "https://www.educity.cn/tiku/tp30419742.html",
+      notes: "可手动登录查看，勿提供或上传 cookie。",
+    },
+  ],
+  subjectCoverage: [
+    {
+      subjectId: "s1",
+      label: "科目一",
+      status: "233 公开少量网页题；希赛显示 99 题估分卷但需登录",
+      action: "先用 233 网页核对公开题，再把希赛/小程序中自己能看到的题导入。",
+    },
+    {
+      subjectId: "s2",
+      label: "科目二",
+      status: "233 提供估分入口；希赛显示 100 题估分卷但需登录",
+      action: "优先核对估分入口，导入自己确认过的题干和答案。",
+    },
+    {
+      subjectId: "s3",
+      label: "科目三",
+      status: "233 提供估分入口；希赛显示 40 题估分卷但需登录",
+      action: "题量较少，建议重点补齐私募监管、募集、投后、退出题。",
+    },
+  ],
+};
+
+export const importExample = [
+  {
+    id: "post-20260523-s1-001",
+    subjectId: "s1",
+    chapterId: "s1c1",
+    stem: "把你合法取得的题干粘贴到这里。",
+    options: ["选项 A", "选项 B", "选项 C", "选项 D"],
+    answer: 1,
+    explanation: "把来源解析或你自己的理解写在这里；导入后可以继续追问。",
+    conceptIds: ["investor-suitability"],
+  },
+];
