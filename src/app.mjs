@@ -1,5 +1,6 @@
 import { cramPlan, concepts, examMeta, questions, subjects } from "./data.mjs";
 import { buildKnowledgeGraph, buildMindMapTree, getConceptNeighborhood } from "./graph-engine.mjs";
+import { importExample, postExamSummary } from "./post-exam-sources.mjs";
 import { buildPracticeSet, explainQuestion, gradeSession, searchConcepts } from "./quiz-engine.mjs";
 
 const app = document.querySelector("#app");
@@ -135,6 +136,7 @@ function renderHeader() {
         ${tab("framework", "知识框架")}
         ${tab("map", "图谱")}
         ${tab("practice", "刷题")}
+        ${tab("estimate", "估分")}
         ${tab("mock", "模拟")}
         ${tab("wrong", "错题")}
         ${tab("assistant", "追问")}
@@ -185,6 +187,7 @@ function renderSubjectRail(selectedSubject) {
 function renderCurrentView(selectedSubject) {
   if (state.view === "map") return renderMap(selectedSubject);
   if (state.view === "practice") return renderPractice(selectedSubject);
+  if (state.view === "estimate") return renderEstimate();
   if (state.view === "mock") return renderMock(selectedSubject);
   if (state.view === "wrong") return renderWrongBook();
   if (state.view === "assistant") return renderAssistant();
@@ -552,6 +555,66 @@ function renderImportPanel() {
   `;
 }
 
+function renderEstimate() {
+  return `
+    <div class="view-head">
+      <div>
+        <p class="eyebrow">考后估分来源</p>
+        <h2>已核验入口与导入方案</h2>
+        <p>最后核验：${postExamSummary.checkedAt}。登录题库只保留链接和题量，不抓取账号态内容。</p>
+      </div>
+      <button class="primary" type="button" data-action="go-practice-import">导入题目</button>
+    </div>
+    <section class="source-warning">
+      <strong>边界</strong>
+      <p>${escapeHtml(postExamSummary.officialNotice)}</p>
+    </section>
+    <section class="coverage-grid">
+      ${postExamSummary.subjectCoverage
+        .map(
+          (item) => `
+            <article class="coverage-card">
+              <span class="pill">${item.label}</span>
+              <h3>${escapeHtml(getSubject(item.subjectId).title)}</h3>
+              <p>${escapeHtml(item.status)}</p>
+              <p>${escapeHtml(item.action)}</p>
+            </article>
+          `,
+        )
+        .join("")}
+    </section>
+    <section class="source-list">
+      ${postExamSummary.sources
+        .map(
+          (source) => `
+            <article class="source-card">
+              <div>
+                <span class="pill">${escapeHtml(source.type)}</span>
+                <h3>${escapeHtml(source.name)}</h3>
+                <p>${escapeHtml(source.coverage)}</p>
+                <p class="source-status">${escapeHtml(source.status)}</p>
+                <p>${escapeHtml(source.notes)}</p>
+              </div>
+              <a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">打开</a>
+            </article>
+          `,
+        )
+        .join("")}
+    </section>
+    <section class="import-panel estimate-import">
+      <div>
+        <h3>导入格式</h3>
+        <p>把你自己能合法打开的估分题按这个 JSON 数组格式保存后导入，后续就能用本工具的题解追问。</p>
+      </div>
+      <pre>${escapeHtml(JSON.stringify(importExample, null, 2))}</pre>
+      <label class="file-button">
+        导入 JSON
+        <input data-control="import" type="file" accept="application/json,.json" />
+      </label>
+    </section>
+  `;
+}
+
 function renderQuiz(kind) {
   const question = state.activeSet[state.currentIndex];
   const selectedAnswer = state.answers[question.id];
@@ -743,6 +806,7 @@ function handleAction(action, target) {
   if (action === "clear-progress") clearProgress();
   if (action === "redo-wrong") redoWrong();
   if (action === "single-question") startSingleQuestion(target.dataset.question);
+  if (action === "go-practice-import") openPracticeImport();
   if (action === "ask-concept") askConcept(target.dataset.concept);
   if (action === "drill-concept") drillConcept(target.dataset.concept);
   if (action === "ask-option") askCurrentQuestion(`${target.dataset.option} 为什么`);
@@ -751,6 +815,11 @@ function handleAction(action, target) {
   if (action === "focus-map-chapter") focusMapChapter(target.dataset.chapter);
   if (action === "set-graph-depth") state.graphDepth = Number(target.dataset.depth) || 1;
   render();
+}
+
+function openPracticeImport() {
+  state.view = "practice";
+  state.activeSet = [];
 }
 
 function startPractice() {
