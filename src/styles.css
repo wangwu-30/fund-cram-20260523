@@ -97,6 +97,9 @@ button:hover:not(:disabled) {
 .question-row p,
 .mock-card p,
 .import-panel p,
+.source-card p,
+.coverage-card p,
+.source-warning p,
 .small-note {
   color: var(--muted);
   margin: 6px 0 0;
@@ -167,6 +170,7 @@ button:hover:not(:disabled) {
 .import-panel,
 .question-panel,
 .tutor-panel,
+.source-warning,
 .assistant-answer {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -258,6 +262,7 @@ button:hover:not(:disabled) {
 
 .cram-grid,
 .mock-actions,
+.coverage-grid,
 .weak-grid {
   display: grid;
   gap: 12px;
@@ -266,6 +271,8 @@ button:hover:not(:disabled) {
 
 .study-step,
 .mock-card,
+.coverage-card,
+.source-card,
 .weak-card,
 .concept-card,
 .question-row {
@@ -397,6 +404,74 @@ input {
   display: flex;
   justify-content: space-between;
   padding: 16px;
+}
+
+.source-warning {
+  border-left: 4px solid var(--orange);
+  padding: 14px 16px;
+}
+
+.source-list {
+  display: grid;
+  gap: 12px;
+}
+
+.coverage-grid,
+.source-list {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.source-card {
+  align-items: center;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.source-card h3,
+.coverage-card h3 {
+  font-size: 18px;
+  margin: 8px 0 0;
+}
+
+.source-card a {
+  background: var(--blue);
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  padding: 9px 14px;
+  text-decoration: none;
+}
+
+.source-status {
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+
+.coverage-card {
+  border-top: 4px solid var(--green);
+}
+
+.estimate-import {
+  align-items: stretch;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr) auto;
+}
+
+.estimate-import pre {
+  background: #101820;
+  border-radius: 8px;
+  color: #eef3f0;
+  font-size: 13px;
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 12px;
+  white-space: pre-wrap;
 }
 
 .file-button {
@@ -964,6 +1039,7 @@ input {
   .concept-grid,
   .cram-grid,
   .mock-actions,
+  .coverage-grid,
   .weak-grid,
   .heatmap-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1024,8 +1100,11 @@ input {
   .concept-grid,
   .cram-grid,
   .mock-actions,
+  .coverage-grid,
   .weak-grid,
   .heatmap-grid,
+  .source-card,
+  .estimate-import,
   .question-row,
   .chat-form,
   .assistant-form {
